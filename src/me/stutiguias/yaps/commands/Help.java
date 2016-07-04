@@ -87,11 +87,6 @@ public class Help extends CommandHandler {
             SendMessage("&6/yaps <tp or teleport> <areaName> &e| &7Teleport to an area");
             hasPerm = true;
         }
-  
-        if(plugin.hasPermission((Player)sender,"yaps.update")){
-            SendMessage("&6/yaps update &e| &7 Update the plugin");
-            hasPerm = true;
-        }
         
         if(plugin.hasPermission((Player)sender,"yaps.reload")){
             SendMessage("&6/yaps reload &e| &7Reload the plugin");
