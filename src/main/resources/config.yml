@@ -1,0 +1,133 @@
+# don't change this
+configversion: 4
+
+#DataBase
+DataBase:
+  # You need to choose if you will use SQLite or Mysql ( default is SQLite )
+  Type: SQLite
+#MySQL config if you will use mysql ( set type to mysql )
+MySQL:
+  Host: localhost
+  Username: root
+  Password: change_this
+  Port: '3306'
+  Database: minecraft
+# Pool Size ( For Mysql Connection )
+ConnectionPoolSize : 10
+
+# how many days after delete old records
+PurgeOldRecords: 3d
+# You can disable auto purge and do it on command
+AutoPurge : true
+# How many seconds for run purge 
+# 43200 = 12h ( 12h in 12h )
+# Only if AutoPurge is true
+PurgeOldRecordsTaskTimer: 43200
+
+# This Option will keep all protection blocks on memory
+# ( increase use of memory ) and will search against 
+# memory not database every time need it
+SearchAgainstMemory: false
+
+# Save to Database in Queue Not will save direct 
+# will put on queue list and will save 1 each time
+# this can save you server from having too much 
+# inserting on database at same time
+SaveQueue : false
+
+# Run task on each seconds for SaveQueue
+RunTaskSeconds : 2
+
+# Allow Protected Blocks place inside protected area
+AllowProtectedBlockInsideArea: false
+
+#Defaults Area Flags
+# if allow all player to move inside area of others players
+AllowMoveInside: true
+
+# The ID of the wand (Stick = 280, Wooden axe = 271)
+WandID: STICK
+
+# The ID of the info wand (Stick = 280, Wooden axe = 271)
+InfoWandID: WOODEN_AXE
+
+# Protected Block - Blocks only owner can destroy ( and admin bypass )
+Protected:
+  - STONE
+  - COBBLESTONE
+  - WOOD
+  - LOG
+  - GLASS
+  - DISPENSER
+  - SANDSTONE
+  - NOTE_BLOCK
+  - BED_BLOCK
+  - STICKY_PISTON
+  - PISTON
+  - WOOL
+  - GOLD_BLOCK
+  - IRON_BLOCK
+  - DOUBLE_STEP
+  - STEP
+  - BRICK
+  - BOOKSHELF
+  - MOSSY_COBBLESTONE
+  - OBSIDIAN
+  - WOOD_STAIRS
+  - WORKBENCH
+  - FURNACE
+  - SIGN_POST
+  - LADDER
+  - COBBLESTONE_STAIRS
+  - WALL_SIGN
+  - LEVER
+  - STONE_BUTTON
+  - ICE
+  - JUKEBOX
+  - FENCE
+  - PUMPKIN
+  - GLOWSTONE
+  - JACK_O_LANTERN
+  - STAINED_GLASS
+  - TRAP_DOOR
+  - SMOOTH_BRICK
+  - IRON_FENCE
+  - GLASS_PANE
+  - BRICK_STAIRS
+  - SMOOTH_STAIRS
+  - MYCEL
+  - NETHER_BRICK
+  - ENCHANTMENT_TABLE
+  - BREWING_STAND
+  - ENDER_STONE
+  - REDSTONE_LAMP_OFF
+  - REDSTONE_LAMP_ON
+  - WOOD_DOUBLE_STEP
+  - WOOD_STEP
+  - SANDSTONE_STAIRS
+  - TRIPWIRE_HOOK
+  - TRIPWIRE
+  - SPRUCE_WOOD_STAIRS
+  - BIRCH_WOOD_STAIRS
+  - JUNGLE_WOOD_STAIRS
+  - BEACON
+  - COBBLE_WALL
+  - FLOWER_POT
+  - WOOD_BUTTON
+  - ANVIL
+  - TRAPPED_CHEST
+  - GOLD_PLATE
+  - IRON_PLATE
+  - DAYLIGHT_DETECTOR
+  - QUARTZ_BLOCK
+  - HOPPER
+  - DROPPER
+  - STAINED_CLAY
+  - STAINED_GLASS_PANE
+  - CARPET
+  - HAY_BLOCK
+  - HARD_CLAY
+  - SIGN
+  - CAULDRON_BLOCK
+  - ITEM_FRAME
+  - FLOWER_POT_ITEM
