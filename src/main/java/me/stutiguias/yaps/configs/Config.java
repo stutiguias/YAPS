@@ -7,7 +7,6 @@
 package me.stutiguias.yaps.configs;
 
 import java.io.IOException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,46 +46,50 @@ public class Config {
         try {
             config = new ConfigAccessor(plugin,"config.yml");
             config.setupConfig();
-            FileConfiguration fc = config.getConfig();   
-                        
+            FileConfiguration fc = config.getConfig();
+
             if(!fc.isSet("configversion") || fc.getInt("configversion") != 4){
                 config.MakeOld();
                 config.setupConfig();
-                fc = config.getConfig();  
+                fc = config.getConfig();
             }
-            
-            DataBaseType = fc.getString("DataBase.Type");
-            Host  = fc.getString("MySQL.Host");
-            Username = fc.getString("MySQL.Username");
-            Password = fc.getString("MySQL.Password");
-            Port = fc.getString("MySQL.Port");
-            Database = fc.getString("MySQL.Database");
-            
-            UpdaterNotify = fc.getBoolean("UpdaterNotify");
-            AllowMoveInside = fc.getBoolean("AllowMoveInside");
-            ConnectionPoolSize = fc.getInt("ConnectionPoolSize");
-            
-            Protected = new ArrayList<>();
-            for(String block:fc.getStringList("Protected")) {
-                Protected.add(block);
-            }
-            
-            SaveQueue = fc.getBoolean("SaveQueue");
-            RunTaskSeconds = fc.getInt("RunTaskSeconds");
-            SearchAgainstMemory = fc.getBoolean("SearchAgainstMemory");
-            AllowProtectedBlockInsideArea = fc.getBoolean("AllowProtectedBlockInsideArea");
-            PurgeOldRecords = fc.getString("PurgeOldRecords");
-            PurgeOldRecordsTaskTimer = fc.getInt("PurgeOldRecordsTaskTimer");
-            AutoPurge = fc.getBoolean("AutoPurge");
-            
+            loadValues(fc);
+
         }catch(IOException ex){
             ex.printStackTrace();
             plugin.getLogger().log(Level.WARNING, "Erro Loading Config");
         }
     }
+
+    private void loadValues(FileConfiguration fc) {
+        DataBaseType = fc.getString("DataBase.Type");
+        Host  = fc.getString("MySQL.Host");
+        Username = fc.getString("MySQL.Username");
+        Password = fc.getString("MySQL.Password");
+        Port = fc.getString("MySQL.Port");
+        Database = fc.getString("MySQL.Database");
+
+        UpdaterNotify = fc.getBoolean("UpdaterNotify");
+        AllowMoveInside = fc.getBoolean("AllowMoveInside");
+        ConnectionPoolSize = fc.getInt("ConnectionPoolSize");
+
+        Protected = new ArrayList<>();
+        for(String block:fc.getStringList("Protected")) {
+            Protected.add(block);
+        }
+
+        SaveQueue = fc.getBoolean("SaveQueue");
+        RunTaskSeconds = fc.getInt("RunTaskSeconds");
+        SearchAgainstMemory = fc.getBoolean("SearchAgainstMemory");
+        AllowProtectedBlockInsideArea = fc.getBoolean("AllowProtectedBlockInsideArea");
+        PurgeOldRecords = fc.getString("PurgeOldRecords");
+        PurgeOldRecordsTaskTimer = fc.getInt("PurgeOldRecordsTaskTimer");
+        AutoPurge = fc.getBoolean("AutoPurge");
+    }
     
     public void reloadConfig() {
         config.reloadConfig();
+        loadValues(config.getConfig());
     }
     
 }

@@ -1,14 +1,12 @@
 package me.stutiguias.yaps.init;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
-import java.util.UUID;
-import java.util.logging.Level;
+import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.Logger;
 import me.stutiguias.yaps.commands.YAPSCommands;
 import me.stutiguias.yaps.configs.Config;
@@ -17,7 +15,6 @@ import me.stutiguias.yaps.db.MySQLDataQueries;
 import me.stutiguias.yaps.db.SqliteDataQueries;
 import me.stutiguias.yaps.listener.PlayerListener;
 import me.stutiguias.yaps.listener.SignListener;
-import me.stutiguias.yaps.metrics.Metrics;
 import me.stutiguias.yaps.model.Area;
 import me.stutiguias.yaps.model.BlockProtected;
 import me.stutiguias.yaps.model.Save;
@@ -40,8 +37,8 @@ public class Yaps extends JavaPlugin {
     private final PlayerListener playerListener = new PlayerListener(this);
     private final SignListener SignListener = new SignListener(this);
 
-    public static Queue<Save> SaveList = new LinkedList<>();
-    
+    public static Queue<Save> SaveList = new ConcurrentLinkedQueue<>();
+
     public static HashMap<Player,Area> AreaCreating;
     public static HashMap<String,YAPSPlayer> PlayerProfiles;
     public static List<String> notProtectPlace;
@@ -91,8 +88,8 @@ public class Yaps extends JavaPlugin {
             db = new SqliteDataQueries(this);
         }
         
-        Areas = db.getAreas();
-        
+        Areas = new CopyOnWriteArrayList<>(db.getAreas());
+
         if(config.SearchAgainstMemory) Protected = db.GetAllProtect();
         
         if(config.SaveQueue) getServer().getScheduler().runTaskTimerAsynchronously(this,new SaveTask(this),config.RunTaskSeconds * 20L,config.RunTaskSeconds * 20L);
@@ -101,13 +98,6 @@ public class Yaps extends JavaPlugin {
 
         getCommand("yaps").setExecutor(new YAPSCommands(this));
 
-        try {
-            int pluginId = 21358;
-            new Metrics(this, pluginId);
-            logger.log(Level.INFO,"{0} Metrics Enable !", prefix);
-        } catch (Exception e) {
-            logger.log(Level.INFO, "{0} Metrics NOT ENABLE!", prefix);
-        }
     }
 
     @Override
@@ -118,14 +108,10 @@ public class Yaps extends JavaPlugin {
            if(save.getFunction().contains("remove")) Yaps.db.RemoveProtect(save.getBlockProtected().getLocation());
         }
         SaveList.clear();
-        
-        getServer().getPluginManager().disablePlugin(this);
     }
     
     public void OnReload() {
         config.reloadConfig();
-        getServer().getPluginManager().disablePlugin(this);
-        getServer().getPluginManager().enablePlugin(this);
     }
     
     private boolean setupPermissions() {

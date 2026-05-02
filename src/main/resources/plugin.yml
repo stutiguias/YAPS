@@ -22,7 +22,10 @@ permissions:
         default: op     
      yaps.wand:
         description: Allow wand
-        default: op            
+        default: op
+     yaps.infowand:
+        description: Allow info wand
+        default: op
      yaps.sign:
         description: Allow sign
         default: op
@@ -66,3 +69,5 @@ permissions:
         yaps.onoff: true
         yaps.listprotectionblocks: true
         yaps.purge: true
+        yaps.infowand: true
+        yaps.setexit: true
