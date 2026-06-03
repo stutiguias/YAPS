@@ -40,6 +40,8 @@ public class Config {
     public String PurgeOldRecords;
     public int PurgeOldRecordsTaskTimer;
     public boolean AutoPurge;
+    public int LimitProtectedBlocks;
+    public int LimitAreas;
     
     public Config(Yaps plugin) {
  
@@ -48,7 +50,7 @@ public class Config {
             config.setupConfig();
             FileConfiguration fc = config.getConfig();
 
-            if(!fc.isSet("configversion") || fc.getInt("configversion") != 4){
+            if(!fc.isSet("configversion") || fc.getInt("configversion") < 4){
                 config.MakeOld();
                 config.setupConfig();
                 fc = config.getConfig();
@@ -82,6 +84,8 @@ public class Config {
         RunTaskSeconds = fc.getInt("RunTaskSeconds");
         SearchAgainstMemory = fc.getBoolean("SearchAgainstMemory");
         AllowProtectedBlockInsideArea = fc.getBoolean("AllowProtectedBlockInsideArea");
+        LimitProtectedBlocks = fc.getInt("LimitProtectedBlocks");
+        LimitAreas = fc.getInt("LimitAreas");
         PurgeOldRecords = fc.getString("PurgeOldRecords");
         PurgeOldRecordsTaskTimer = fc.getInt("PurgeOldRecordsTaskTimer");
         AutoPurge = fc.getBoolean("AutoPurge");

@@ -44,6 +44,18 @@ public class Define extends CommandHandler {
          SendMessage("&4This name is already in use.");
          return true;
         }
+
+        if(!plugin.hasPermission((Player)sender, "yaps.bypass") && Yaps.config.LimitAreas > 0) {
+            int totalAreas = 0;
+            for(Area protectedArea:Yaps.Areas) {
+                if(protectedArea.getOwner().equalsIgnoreCase(owner)) totalAreas++;
+            }
+
+            if(totalAreas >= Yaps.config.LimitAreas) {
+                SendMessage("&4You reached the limit of %s protected areas.", new Object[]{ Yaps.config.LimitAreas });
+                return true;
+            }
+        }
         
         String flag = "";
         

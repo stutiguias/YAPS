@@ -28,6 +28,7 @@ public interface IDataQueries {
         boolean UpdateArea(Area area);
         boolean SetExit(Area area);
         boolean InsertProtect(BlockProtected blockProtected);
+        int CountProtectByOwner(String owner);
         BlockProtected GetProtect(Location location);
         HashMap<Location,BlockProtected> GetAllProtect();
         List<BlockProtected> GetAllProtectList();

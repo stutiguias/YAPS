@@ -32,7 +32,7 @@ public class SetExit extends CommandHandler {
         
         Location location = player.getLocation();
         
-        if (args.length < 1) {
+        if (args.length < 2) {
             SendMessage("&4Wrong arguments");
             return true;
         }   

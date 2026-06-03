@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">YAPS</title>
+  <desc id="desc">Small shield and protected area icon for Yet Another Protection System.</desc>
+  <rect width="128" height="128" rx="18" fill="#1f2933"/>
+  <path d="M64 14 104 29v29c0 27-16 48-40 56-24-8-40-29-40-56V29z" fill="#2f80ed"/>
+  <path d="M64 24 94 35v23c0 20-11 36-30 43-19-7-30-23-30-43V35z" fill="#56ccf2"/>
+  <path d="M44 46h40v35H44z" fill="#1f2933"/>
+  <path d="M44 46h13v12H44zm27 0h13v12H71zM57 58h14v12H57zM44 70h13v11H44zm27 0h13v11H71z" fill="#8bd46e"/>
+  <path d="M32 32h12v8H32zm52 0h12v8H84zM32 88h12v8H32zm52 0h12v8H84z" fill="#f2c94c"/>
+  <path d="M40 36h48M40 92h48M36 40v48M92 40v48" fill="none" stroke="#f2c94c" stroke-width="4" stroke-linecap="round"/>
+</svg>

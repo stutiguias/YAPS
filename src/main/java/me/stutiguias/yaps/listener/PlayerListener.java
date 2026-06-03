@@ -53,15 +53,17 @@ public class PlayerListener extends Util implements Listener {
 
 		Area area = isInsideArea(location);
 
-		onBlockProtect(area, location, block, player);
-
-		if (area == null) return;
-
-		if (!isValidEvent(area, player, location, "place")) {
-			if (plugin.hasPermission(player, "yaps.bypass"))	return;
+		if (area != null && !isValidEvent(area, player, location, "place")) {
+			if (plugin.hasPermission(player, "yaps.bypass")) {
+				onBlockProtect(area, location, block, player);
+				return;
+			}
 			event.setCancelled(true);
 			SendMessage(player, "&4Sorry! &7You are not allowed to place blocks there!");
+			return;
 		}
+
+		onBlockProtect(area, location, block, player);
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL)
@@ -107,7 +109,7 @@ public class PlayerListener extends Util implements Listener {
 				Yaps.Protected.remove(location);
 
 			if (Yaps.config.SaveQueue) {
-				Yaps.SaveList.add(new Save("remove", new BlockProtected(location, "", "")));
+				Yaps.SaveList.add(new Save("remove", blockProtected));
 			} else {
 				Yaps.db.RemoveProtect(location);
 			}
@@ -217,6 +219,41 @@ public class PlayerListener extends Util implements Listener {
 		if (Yaps.notProtectPlace.contains(player.getName())) return;
 		if (!Yaps.config.Protected.contains(block))	return;
 		if (area != null && !Yaps.config.AllowProtectedBlockInsideArea)	return;
+		if (isProtectedBlockLimitReached(player)) {
+			SendMessage(player, "&4You reached the limit of %s protected blocks.", new Object[] { Yaps.config.LimitProtectedBlocks });
+			return;
+		}
 		Protect(location, player, block);
+	}
+
+	private boolean isProtectedBlockLimitReached(Player player) {
+		if (Yaps.config.LimitProtectedBlocks <= 0) return false;
+		if (plugin.hasPermission(player, "yaps.bypass")) return false;
+		return countProtectedBlocks(player.getName()) >= Yaps.config.LimitProtectedBlocks;
+	}
+
+	private int countProtectedBlocks(String owner) {
+		int count = 0;
+
+		if (Yaps.config.SearchAgainstMemory) {
+			for (BlockProtected blockProtected : Yaps.Protected.values()) {
+				if (blockProtected.getOwner().equalsIgnoreCase(owner)) count++;
+			}
+			return count;
+		}
+
+		count = Yaps.db.CountProtectByOwner(owner);
+
+		if (Yaps.config.SaveQueue) {
+			for (Save save : Yaps.SaveList) {
+				BlockProtected blockProtected = save.getBlockProtected();
+				if (blockProtected == null || blockProtected.getOwner() == null) continue;
+				if (!blockProtected.getOwner().equalsIgnoreCase(owner)) continue;
+				if (save.getFunction().contains("add")) count++;
+				if (save.getFunction().contains("remove")) count--;
+			}
+		}
+
+		return count;
 	}
 }

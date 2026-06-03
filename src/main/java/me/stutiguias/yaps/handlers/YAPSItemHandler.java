@@ -33,9 +33,14 @@ public class YAPSItemHandler extends Util {
     }
 
     public void Process(PlayerInteractEvent event) {
-        if (!type.equals("YAPS Wand")) return;
-        YAPSWand(event, event.getPlayer());
-        YAPSInfoWand(event, event.getPlayer());
+        if (type.equals("YAPS Wand")) {
+            YAPSWand(event, event.getPlayer());
+            return;
+        }
+
+        if (type.equals("YAPS Info Wand")) {
+            YAPSInfoWand(event, event.getPlayer());
+        }
     }
 
     public void YAPSWand(PlayerInteractEvent event, Player player){

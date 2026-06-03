@@ -242,6 +242,29 @@ public class Queries extends Util implements IDataQueries {
 	}
 
 	@Override
+	public int CountProtectByOwner(String owner) {
+		WALConnection conn = getConnection();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		int count = 0;
+
+		try {
+			st = conn.prepareStatement("SELECT COUNT(*) FROM YAPS_Protected WHERE LOWER(owner) = LOWER(?)");
+			st.setString(1, owner);
+			rs = st.executeQuery();
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			Yaps.logger.log(Level.WARNING, "{0} Unable to count protected blocks", plugin.prefix);
+			Yaps.logger.warning(e.getMessage());
+		} finally {
+			closeResources(conn, st, rs);
+		}
+		return count;
+	}
+
+	@Override
 	public BlockProtected GetProtect(Location location) {
 		BlockProtected blockProtected = null;
 		WALConnection conn = getConnection();

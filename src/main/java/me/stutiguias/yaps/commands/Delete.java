@@ -49,7 +49,7 @@ public class Delete extends CommandHandler {
             return false;
         }
         
-        if (args.length < 1) {
+        if (args.length < 2) {
             SendMessage("&4Wrong arguments");
             return false;
         }   
