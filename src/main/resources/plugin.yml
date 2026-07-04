@@ -26,6 +26,9 @@ permissions:
      yaps.infowand:
         description: Allow info wand
         default: op
+     yaps.blockinfo:
+        description: Allow protected block info
+        default: op
      yaps.sign:
         description: Allow sign
         default: op
@@ -70,4 +73,5 @@ permissions:
         yaps.listprotectionblocks: true
         yaps.purge: true
         yaps.infowand: true
+        yaps.blockinfo: true
         yaps.setexit: true

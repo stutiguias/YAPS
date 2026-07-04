@@ -32,6 +32,8 @@ public class YAPSCommands extends Util implements CommandExecutor {
 		Info info = new Info(plugin);
 		Teleport teleport = new Teleport(plugin);
 		InfoWand infowand = new InfoWand(plugin);
+		BlockInfo blockInfo = new BlockInfo(plugin);
+		BlockWand blockWand = new BlockWand(plugin);
 		SetExit setexit = new SetExit(plugin);
 
 		// Area Command
@@ -49,6 +51,10 @@ public class YAPSCommands extends Util implements CommandExecutor {
 		avaibleCommands.put("info", info);
 		avaibleCommands.put("iw", infowand);
 		avaibleCommands.put("infowand", infowand);
+		avaibleCommands.put("bi", blockInfo);
+		avaibleCommands.put("blockinfo", blockInfo);
+		avaibleCommands.put("bw", blockWand);
+		avaibleCommands.put("blockwand", blockWand);
 		avaibleCommands.put("se", setexit);
 		avaibleCommands.put("setexit", setexit);
 

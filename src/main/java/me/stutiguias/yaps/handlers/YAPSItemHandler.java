@@ -16,9 +16,11 @@ public class YAPSItemHandler extends Util {
 
     public String type;
     public final String MsgHr = "&e-----------------------------------------------------";
+    private final ProtectedBlockInfoHandler protectedBlockInfoHandler;
 
     public YAPSItemHandler(Yaps plugin) {
         super(plugin);
+        protectedBlockInfoHandler = new ProtectedBlockInfoHandler(plugin);
     }
 
     public boolean isValidYAPSItemEvent(PlayerInteractEvent event) {
@@ -40,6 +42,11 @@ public class YAPSItemHandler extends Util {
 
         if (type.equals("YAPS Info Wand")) {
             YAPSInfoWand(event, event.getPlayer());
+            return;
+        }
+
+        if (type.equals("YAPS Block Info Wand")) {
+            YAPSBlockInfoWand(event, event.getPlayer());
         }
     }
 
@@ -85,5 +92,11 @@ public class YAPSItemHandler extends Util {
 
         event.setCancelled(true);
 
+    }
+
+    public void YAPSBlockInfoWand(PlayerInteractEvent event, Player player) {
+        if(!player.hasPermission("yaps.blockinfo")) return;
+        protectedBlockInfoHandler.ShowTargetBlockInfo(player);
+        event.setCancelled(true);
     }
 }

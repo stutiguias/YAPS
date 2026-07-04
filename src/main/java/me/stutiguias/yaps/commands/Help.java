@@ -67,6 +67,12 @@ public class Help extends CommandHandler {
             SendMessage("&6/yaps <iw or infowand> &e| &7Get the info wand");
             hasPerm = true;
         }   
+
+        if(plugin.hasPermission((Player)sender,"yaps.blockinfo")){
+            SendMessage("&6/yaps <bi or blockinfo> &e| &7Info about protected block you are looking at");
+            SendMessage("&6/yaps <bw or blockwand> &e| &7Get the protected block info wand");
+            hasPerm = true;
+        }
         
         if(plugin.hasPermission((Player)sender,"yaps.list")){
             SendMessage("&6/yaps <se or setexit> &e| &7Set the exit point for all not allow players");
